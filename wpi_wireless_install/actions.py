@@ -7,7 +7,7 @@ from subprocess import Popen, PIPE, STDOUT, CalledProcessError
 from textwrap import wrap
 from time import sleep
 
-import wpi_wireless_install.websso
+from wpi_wireless_install import websso
 from wpi_wireless_install.dbusproxies import NetworkManagerProxy
 from wpi_wireless_install.enroll import enroll, TPMRequired
 from wpi_wireless_install.enrollapi import ConnectorError, EnrollmentException

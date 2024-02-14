@@ -37,7 +37,7 @@ def run():
     autodetecting = INTERPRETER_AUTODETECTION_FLAG in sys.argv
 
     try:
-        import wpi_wireless_install.logger as logger
+        from wpi_wireless_install import logger
         from wpi_wireless_install.logger import ConsoleLogger, FileLogger
         from wpi_wireless_install.client import PaladinLinuxClient
 
@@ -63,7 +63,7 @@ def run():
         logger.register(FileLogger())
 
         if EXECUTABLE_AUTODETECTION_VERSION_FLAG in sys.argv or ALL_AUTODETECTION_VERSION_FLAG in sys.argv:
-            import detect
+            from wpi_wireless_install import detect
             detect.VERBOSE_DETECT = True
 
         try:
