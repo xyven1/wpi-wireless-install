@@ -4,12 +4,14 @@
     {
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     };
-  outputs = { self, nixpkgs, ... }:
+  outputs = { nixpkgs, ... }:
     {
-      nixpkgs.overlays = [
-        (self: super: {
-          wpi = super.callPackage ./default.nix { };
-        })
-      ];
+      overlays = {
+        default = final: prev:
+          {
+            wpi-wireless-install = prev.callPackage ./. { };
+          };
+      };
+      packages.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.callPackage ./. { };
     };
 }
