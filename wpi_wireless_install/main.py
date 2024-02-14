@@ -34,8 +34,6 @@ def find_all_interpreters():
     return sorted(filter(lambda e: valid_interpreter(e), [ path + os.path.sep + filename for path in os.environ['PATH'].split(os.pathsep) for filename in safe_listdir(path) ]))
 
 def run():
-    # print current dir
-    print(os.getcwd())
     autodetecting = INTERPRETER_AUTODETECTION_FLAG in sys.argv
 
     try:
