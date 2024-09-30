@@ -1,9 +1,9 @@
 from os import environ, getcwd, mkdir
 
-from wpi_wireless_install.pycompat import parse_qsl
+from eduroam_install.pycompat import parse_qsl
 
-from wpi_wireless_install.detect import detect_executable, ExecutableNotFoundError, ExternalExecutionError, VERBOSE_DETECT
-from wpi_wireless_install.dbusproxies import GnomeShellProxy, GnomeShellScriptExecutionException, DBusException
+from eduroam_install.detect import detect_executable, ExecutableNotFoundError, ExternalExecutionError, VERBOSE_DETECT
+from eduroam_install.dbusproxies import GnomeShellProxy, GnomeShellScriptExecutionException, DBusException
 
 
 class WebSSOError(Exception):
@@ -80,7 +80,7 @@ class XWinInfoWindowScanner(AbstractWindowsScanner):
     def __init__(self):
         super(XWinInfoWindowScanner, self).__init__()
         try:
-            from wpi_wireless_install.x11 import WindowManager
+            from eduroam_install.x11 import WindowManager
             self.window_manager = WindowManager()
         except ImportError:
             raise

@@ -4,30 +4,28 @@ import xml.etree.ElementTree as ET
 from locale import getdefaultlocale
 from subprocess import Popen, PIPE
 
-from wpi_wireless_install.pycompat import getargspec, urlopen, URLError
+from eduroam_install.pycompat import getargspec, urlopen, URLError
 
 VERSION = '3.0.2'
 NAME    = 'JoinNow for Linux'
 
-from wpi_wireless_install.actions import ActionFactory, NoneAction, ActionError, InternalActionError
-from wpi_wireless_install.logger import function_logger
-from wpi_wireless_install.paladindefs import SW2_PALADIN_REPORT_HANDLER_CLOUD
-from wpi_wireless_install.reporter import PaladinCloudReporter
-from wpi_wireless_install.resourcemanager import load_resources
-from wpi_wireless_install.ui import ui, Buttons
+from eduroam_install.actions import ActionFactory, NoneAction, ActionError, InternalActionError
+from eduroam_install.logger import function_logger
+from eduroam_install.paladindefs import SW2_PALADIN_REPORT_HANDLER_CLOUD
+from eduroam_install.reporter import PaladinCloudReporter
+from eduroam_install.resourcemanager import load_resources
+from eduroam_install.ui import ui, Buttons
 
 
 class PaladinLinuxClient(object):
     """SecureW2 JoinNow Linux Client Implementation"""
-    CONFIG_FILE = os.path.join(os.path.split(__file__)[0], 'SecureW2.cloudconfig')
-
-    def __init__(self):
+    def __init__(self, config_file):
         self.devicecfg       = None
         self.organization    = None
         self.actions         = []
         self.locales         = []
 
-        config_file = self.decipher(self.CONFIG_FILE)
+        config_file = self.decipher(config_file)
         config_file = self.strip_namespace(config_file)
         self.load_config(config_file)
 

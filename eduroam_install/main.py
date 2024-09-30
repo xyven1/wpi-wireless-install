@@ -34,12 +34,23 @@ def find_all_interpreters():
     return sorted(filter(lambda e: valid_interpreter(e), [ path + os.path.sep + filename for path in os.environ['PATH'].split(os.pathsep) for filename in safe_listdir(path) ]))
 
 def run():
+    # first argument shold be path to config file
+    if len(sys.argv) < 2:
+        print('Usage: eduroam-install  <config-file>')
+        sys.exit(1)
+
+    config_file = sys.argv[1]
+
+    if not os.path.isfile(config_file):
+        print('Error: Config file not found: ' + config_file)
+        sys.exit(1)
+
     autodetecting = INTERPRETER_AUTODETECTION_FLAG in sys.argv
 
     try:
-        from wpi_wireless_install import logger
-        from wpi_wireless_install.logger import ConsoleLogger, FileLogger
-        from wpi_wireless_install.client import PaladinLinuxClient
+        from eduroam_install import logger
+        from eduroam_install.logger import ConsoleLogger, FileLogger
+        from eduroam_install.client import PaladinLinuxClient
 
     except ImportError as e:
         if autodetecting:
@@ -63,11 +74,11 @@ def run():
         logger.register(FileLogger())
 
         if EXECUTABLE_AUTODETECTION_VERSION_FLAG in sys.argv or ALL_AUTODETECTION_VERSION_FLAG in sys.argv:
-            from wpi_wireless_install import detect
+            from eduroam_install import detect
             detect.VERBOSE_DETECT = True
 
         try:
-            PaladinLinuxClient().run(mask_exceptions=(not EXCEPTION_BACKTRACE_FLAG in sys.argv and not ALL_EXCEPTIONS_BACKTRACE_FLAG in sys.argv), handle_errors=(not ALL_EXCEPTIONS_BACKTRACE_FLAG in sys.argv))
+            PaladinLinuxClient(config_file).run(mask_exceptions=(not EXCEPTION_BACKTRACE_FLAG in sys.argv and not ALL_EXCEPTIONS_BACKTRACE_FLAG in sys.argv), handle_errors=(not ALL_EXCEPTIONS_BACKTRACE_FLAG in sys.argv))
         except KeyboardInterrupt as e:
             print('')
             sys.exit(1)

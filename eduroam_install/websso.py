@@ -1,8 +1,8 @@
 from time import sleep
 from uuid import uuid4
 
-from wpi_wireless_install.paladindefs import *
-from wpi_wireless_install.pycompat import parse_qsl, urlencode, urlparse, urlunparse
+from eduroam_install.paladindefs import *
+from eduroam_install.pycompat import parse_qsl, urlencode, urlparse, urlunparse
 
 
 OAUTH_OOB_URN = 'urn:ietf:wg:oauth:2.0:oob:auto'
@@ -35,7 +35,7 @@ def is_oauth_oob_window(title, state):
 
 def try_find_browser():
     try:
-        from wpi_wireless_install.websso_backends import BrowserLauncher
+        from eduroam_install.websso_backends import BrowserLauncher
         return BrowserLauncher()
     except ImportError as e:
         raise NoBackendFoundException(e)
@@ -84,7 +84,7 @@ def prepare_callback(confirm_type, url_template):
 
     if confirm_type == SW2_PALADIN_TLS_ENROLL_WEBSSO_CONFIRM_TYPE_SCAN_TBAR:
         try:
-            from wpi_wireless_install.websso_backends import WindowScanner
+            from eduroam_install.websso_backends import WindowScanner
         except ImportError as e:
             raise NoBackendFoundException(str(e))
 
@@ -128,7 +128,7 @@ def prepare_callback(confirm_type, url_template):
                 # (Depends if a window scanner is available and the browser is running under the correct window manager/compositor)
                 # Ignore any errors.
                 #
-                from wpi_wireless_install.websso_backends import FallbackWindowScanner
+                from eduroam_install.websso_backends import FallbackWindowScanner
                 windows = []
                 attempts = 5
                 while len(windows) == 0 and attempts > 0:

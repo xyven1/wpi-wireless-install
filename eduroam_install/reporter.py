@@ -4,11 +4,11 @@ import xml.etree.ElementTree as ET
 from hashlib import sha1
 from subprocess import Popen, PIPE
 
-from wpi_wireless_install.pycompat import httplib
+from eduroam_install.pycompat import httplib
 
-from wpi_wireless_install.dbusproxies import NetworkManagerProxy
-from wpi_wireless_install.client import NAME, VERSION
-from wpi_wireless_install.netdev import get_real_hwaddress
+from eduroam_install.dbusproxies import NetworkManagerProxy
+from eduroam_install.client import NAME, VERSION
+from eduroam_install.netdev import get_real_hwaddress
 
 
 class PaladinCloudReporter(object):

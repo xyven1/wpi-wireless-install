@@ -3,10 +3,10 @@ from hashlib import sha1
 from json import loads, dumps
 from os import urandom
 
-from wpi_wireless_install.pycompat import urlopen, Request as HttpRequest, URLError, HTTPError
-from wpi_wireless_install.pycompat import JSONDecodeError
+from eduroam_install.pycompat import urlopen, Request as HttpRequest, URLError, HTTPError
+from eduroam_install.pycompat import JSONDecodeError
 
-from wpi_wireless_install.sslengine import SSLEngineError
+from eduroam_install.sslengine import SSLEngineError
 
 
 VERSION = '1.4'
